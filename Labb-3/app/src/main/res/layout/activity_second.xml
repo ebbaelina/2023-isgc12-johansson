@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/gradientbackground2">
+
+    <Button
+        android:id="@+id/btnSecondActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/peach"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"
+        android:text="Tillbaka"/>
+
+
+    <TextView
+        android:id="@+id/ArtistTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"
+        style="@style/TextAppearance.MaterialComponents.Headline3"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/relatedArtists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:text="Relaterade artister:"/>
+
+    <TextView
+        android:id="@+id/relatedArtists1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/relatedArtists2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/relatedArtists3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/relatedArtists4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:text=""/>
+
+    <TextView
+        android:id="@+id/relatedArtists5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:text=""/>
+
+</LinearLayout>
