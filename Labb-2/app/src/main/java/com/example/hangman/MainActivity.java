@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     TextView Headline;
     String WrongLetters = " ";
     String livesLeftX = "  X X X X X X X";
+    String hiddenWord;
     String randomWordWith_ = " ";
     String randomWord;
     //Vinna/förlora meddelande
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         //hämtar ut ordet från den indexplats som slumpats ut
         randomWord = hangmanWords[getRandomIndex];
         randomWordArray = randomWord.toCharArray();
+        Toast.makeText(this, randomWord, Toast.LENGTH_LONG).show();
 
         StartGame();
     }
@@ -68,17 +71,14 @@ public class MainActivity extends AppCompatActivity {
     public void StartGame() {
 
         //byter ut alla bokstäver till _ för att dölja ordet som ska gissas
-        for (int i = 0; i < randomWordArray.length; i++) {
-            randomWordArray[i] = '_';
-        }
-        randomWordWith_ = String.valueOf(randomWordArray);
+        randomWordArray = new char[randomWord.length()];
+        Arrays.fill(randomWordArray, '_');
 
-        String string = "";
-        for(char c : randomWordArray){
-            string += c + " ";
-        }
 
-        hangmanWordGuess.setText(string);
+        hiddenWord = new String(randomWordArray).replace("", " ");
+
+        // Uppdaterar TextView för att visa det dolda ordet och liv
+        hangmanWordGuess.setText(hiddenWord);
         livesLeft.setText(livesLeftX);
 
         btnGuess.setOnClickListener(new View.OnClickListener() {
@@ -101,46 +101,42 @@ public class MainActivity extends AppCompatActivity {
                 resetGame();
             }
         });
-
-        checkForWinnOrLoose();
     }
 
-    public void guessWord(char guessedLetter){
+    public void guessWord(char guessedLetter) {
 
-        if(randomWord.indexOf(guessedLetter) >= 0){
-            if(randomWordWith_.indexOf(guessedLetter) == -1){
+        boolean letterGuessed = false;
 
-                int index = randomWord.indexOf(guessedLetter);
-
-                while(index >= 0){
-                    randomWordArray[index] = randomWord.charAt(index);
-                    index = randomWord.indexOf(guessedLetter,index+1);
-                }
-
-                randomWordWith_ = String.valueOf(randomWordArray);
-
-                String string = "";
-                for(char c : randomWordArray){
-                    string += c + " ";
-                }
-
-                hangmanWordGuess.setText(string);
-                checkForWinnOrLoose();
-
+        for (int i = 0; i < randomWord.length(); i++) {
+            if (randomWord.charAt(i) == guessedLetter && randomWordArray[i] == '_') {
+                randomWordArray[i] = guessedLetter;
+                letterGuessed = true;
             }
-        }else {
+        }
+        if (letterGuessed) {
+
+            hiddenWord = new String(randomWordArray);
+            hangmanWordGuess.setText(hiddenWord.replaceAll("", " "));
+
+            checkForWinOrLoss();
+
+        } else {
+            //lägger till guessedLetter i WrongLetters strängen och lägger till mellanslag
             WrongLetters += guessedLetter + " ";
             WrongLettersTried.setText(WrongLetters);
 
+            //om man har liv kvar, så tas ett X bort från stängen, plus mellanslaget
             if (!livesLeftX.isEmpty()) {
                 livesLeftX = livesLeftX.substring(0, livesLeftX.length() - 2);
                 livesLeft.setText(livesLeftX);
 
+                checkForWinOrLoss();
+
             }
-            checkForWinnOrLoose();
         }
-}
-    public void resetGame(){
+    }
+
+    public void resetGame() {
 
         //slumpar ut nytt ord för att skicka till metoden StartGame
         Random random = new Random();
@@ -163,8 +159,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void checkForWinnOrLoose() {
-        if(!randomWordWith_.contains("_")){
+    public void checkForWinOrLoss() {
+        if(!hiddenWord.contains("_")){
             Headline.setText(WIN);
             btnGuess.setEnabled(false);
         }
@@ -172,9 +168,11 @@ public class MainActivity extends AppCompatActivity {
         if(!livesLeftX.contains("X")){
             Headline.setText(LOSE);
             btnGuess.setEnabled(false);
-                }
-            }
-
-
+        }
     }
+
+
+}
+
+
 
